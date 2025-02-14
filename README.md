@@ -19,3 +19,12 @@ glyphs: "glyphs://{fontstack}/{range}",
 ```
 
 Done! Simple as that.
+
+## Dependencies
+
+Make sure your project has access to pbf and tiny-sdf.
+
+```
+npm install pbf
+npm install @mapbox/tiny-sdf
+```
