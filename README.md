@@ -31,17 +31,4 @@ npm install @mapbox/tiny-sdf
 
 ## Known issues
 
-For some reason the letter j is rendered a bit to tight by tiny-sdf, this can be solved by modifying tiny-sdf with the following code, line 59 forward:
-
-```js
-// If the glyph overflows the canvas size, it will be clipped at the bottom/right
-// ADDING EXTRA PADDING otherwise "j" will be cut off
-const EXTRA_PADDING = 2;
-const glyphWidth = Math.max(
-  0,
-  Math.min(
-    this.size - this.buffer,
-    Math.ceil(actualBoundingBoxRight - actualBoundingBoxLeft) + EXTRA_PADDING,
-  ),
-);
-```
+For some reason the letter j is rendered a bit to tight by tiny-sdf, this can be solved by modifying tiny-sdf. This is solved by patch-package on installation.
