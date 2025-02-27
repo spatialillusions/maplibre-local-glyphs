@@ -2,11 +2,17 @@
 
 Custom protocol for creating all glyphs locally in the browser without any changes to maplibre
 
+## Installation
+
+```
+npm install maplibre-local-glyphs --save
+```
+
 ## In Maplibre
 
 ```js
 import maplibregl from "maplibre-gl";
-import glyphs from "./protocol-glyphs.js";
+import glyphs from "maplibre-local-glyphs";
 maplibregl.addProtocol("glyphs", glyphs);
 
 // Load map as usual
@@ -14,20 +20,11 @@ maplibregl.addProtocol("glyphs", glyphs);
 
 in your style:
 
-```
+```json
 glyphs: "glyphs://{fontstack}/{range}",
 ```
 
 Done! Simple as that.
-
-## Dependencies
-
-Make sure your project has access to pbf and tiny-sdf.
-
-```
-npm install pbf
-npm install @mapbox/tiny-sdf
-```
 
 ## Known issues
 
