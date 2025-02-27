@@ -20,7 +20,7 @@ maplibregl.addProtocol("glyphs", glyphs);
 
 in your style:
 
-```json
+```
 glyphs: "glyphs://{fontstack}/{range}",
 ```
 
