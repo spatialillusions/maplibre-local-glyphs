@@ -50,11 +50,58 @@ function generateGlyphs(font, range) {
   return pbf.finish();
 }
 
+function promiseReq(req) {
+  return new Promise((resolve, reject) => {
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
 export default async function (params) {
   const pattern = /glyphs:\/\/(.*)\/(.*)/i;
   const url = params.url.match(pattern);
-  const glyphPbf = generateGlyphs(url[1], url[2]);
-  return {
-    data: glyphPbf,
+  const font = url[1];
+  const range = url[2];
+
+  const dbReq = window.indexedDB.open("maplibre-local-glyphs", 1);
+  dbReq.onupgradeneeded = (event) => {
+    const db = event.target.result;
+    db.createObjectStore("fonts", { keyPath: "fontRange" });
   };
+
+  try {
+    const db = await promiseReq(dbReq);
+    const objectStore = db
+      .transaction("fonts", "readwrite")
+      .objectStore("fonts");
+
+    const fontRange = [font, range].join("-");
+    const request = objectStore.get(fontRange);
+    const result = await promiseReq(request);
+    if (result !== undefined) {
+      console.log("got glyphs from IndexedDB");
+      const data = result.data;
+      db.close();
+      return {
+        data: data,
+      };
+    } else {
+      const glyphPbf = generateGlyphs(font, range);
+      const fontRange = [font, range].join("-");
+      objectStore.add({
+        fontRange: fontRange,
+        data: glyphPbf.buffer,
+      });
+      db.close();
+      return {
+        data: glyphPbf.buffer,
+      };
+    }
+  } catch (error) {
+    console.error("Error accessing IndexedDB", error);
+    const glyphPbf = generateGlyphs(font, range);
+    return {
+      data: glyphPbf.buffer,
+    };
+  }
 }
