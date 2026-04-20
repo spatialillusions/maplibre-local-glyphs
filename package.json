@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "author": "Måns Beckman",
-  "type": "commonjs",
+  "type": "module",
   "main": "protocol-glyphs.js",
   "scripts": {
     "postinstall": "patch-package",
