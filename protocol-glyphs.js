@@ -63,13 +63,13 @@ export default async function (params) {
   const font = url[1];
   const range = url[2];
 
-  const dbReq = window.indexedDB.open("maplibre-local-glyphs", 1);
-  dbReq.onupgradeneeded = (event) => {
-    const db = event.target.result;
-    db.createObjectStore("fonts", { keyPath: "fontRange" });
-  };
-
   try {
+    const dbReq = window.indexedDB.open("maplibre-local-glyphs", 1);
+    dbReq.onupgradeneeded = (event) => {
+      const db = event.target.result;
+      db.createObjectStore("fonts", { keyPath: "fontRange" });
+    };
+
     const db = await promiseReq(dbReq);
     const objectStore = db
       .transaction("fonts", "readwrite")

@@ -1,6 +1,6 @@
 {
   "name": "maplibre-local-glyphs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Custom protocol for creating all glyphs locally in the browser without any changes to maplibre",
   "homepage": "https://github.com/spatialillusions/maplibre-local-glyphs#readme",
   "bugs": {
@@ -12,15 +12,13 @@
   },
   "license": "MIT",
   "author": "Måns Beckman",
-  "type": "commonjs",
+  "type": "module",
   "main": "protocol-glyphs.js",
   "scripts": {
-    "postinstall": "patch-package",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "dependencies": {
-    "@mapbox/tiny-sdf": "^2.0.6",
-    "patch-package": "^8.0.0",
-    "pbf": "^4.0.1"
+    "@mapbox/tiny-sdf": "^2.3.0",
+    "pbf": "^4.0.2"
   }
 }

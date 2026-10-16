@@ -26,6 +26,12 @@ glyphs: "glyphs://{fontstack}/{range}",
 
 Done! Simple as that.
 
-## Known issues
+## Security and glyph rendering
 
-For some reason the letter j is rendered a bit to tight by tiny-sdf, this can be solved by modifying tiny-sdf. This is solved by patch-package on installation.
+Version 1.2.1 removes `patch-package` and the installation hook. Installing this
+package no longer modifies dependencies in the consuming application.
+
+Glyphs use upstream `@mapbox/tiny-sdf` 2.3.0 or later, which accounts for glyph
+bearings when positioning and measuring characters such as `j`. The old patch
+for clipped characters is no longer needed. This package is an ES module, as
+shown in the import example above.
